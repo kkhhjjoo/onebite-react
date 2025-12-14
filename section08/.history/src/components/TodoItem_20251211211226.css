@@ -1,0 +1,16 @@
+li {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid lightgray;
+  padding: 1em;
+}
+li span {
+  color: lightgray;
+}
+
+li button {
+  border: none;
+  margin-left: 10px;
+  background-color: rgb(236, 235, 235);
+  border-radius: 4px;
+}

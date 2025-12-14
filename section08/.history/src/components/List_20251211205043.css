@@ -1,0 +1,12 @@
+.List input {
+  border: none;
+  border-bottom: 1px solid lightgray;
+}
+li {
+  display: flex;
+  border-bottom: 1px solid lightgray;
+  padding: 1em;
+}
+li span {
+  color: lightgray;
+}

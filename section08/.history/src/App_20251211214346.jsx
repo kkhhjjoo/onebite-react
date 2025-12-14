@@ -1,37 +1,36 @@
-import './App.css';
-import { useState, useRef } from 'react';
-import Editor from './components/Editor';
-import Header from './components/Header';
-import List from './components/List';
+import "./App.css";
+import { useState } from "react";
+import Editor from "./components/Editor";
+import Header from "./components/Header";
+import List from "./components/List";
 
 const mockData = [
   {
     id: 0,
     isDone: false,
-    content: 'React 공부하기',
+    content: "React 공부하기",
     date: new Date().getTime(),
   },
   {
     id: 1,
-    isDone: true,
-    content: '자바스크립트 공부하기',
+    isDone: false,
+    content: "노래하기",
     date: new Date().getTime(),
   },
   {
     id: 2,
     isDone: false,
-    content: 'Next.js 공부하기',
+    content: "설겆이하기",
     date: new Date().getTime(),
   },
 ];
 
 function App() {
   const [todos, setTodos] = useState(mockData);
-  const idRef = useRef(3);
 
   const onCreate = (content) => {
     const newTodo = {
-      id: idRef.current++,
+      id: 0,
       isDone: false,
       content: content,
       date: new Date().getTime(),
@@ -43,7 +42,7 @@ function App() {
     <div className="App">
       <Header />
       <Editor onCreate={onCreate} />
-      <List todos={todos} />
+      <List />
     </div>
   );
 }

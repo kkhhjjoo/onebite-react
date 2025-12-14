@@ -13,16 +13,17 @@ const List = ({ todos }) => {
     if (search === '') {
       return todos;
     }
-    return todos.filter((todo) => todo.content.toLowerCase().includes(search.toLowerCase()));
+    return todos.filter((todo) => {
+      todo.content.includes(search);
+    });
   };
 
-  const filteredTodos = getFilteredData();
   return (
     <div className="List">
       <h4>Todo List 🌱</h4>
       <input value={search} onChange={onChangeSearch} type="text" placeholder="검색어를 입력하세요" />
       <ul className="todos_wrapper">
-        {filteredTodos.map((todo) => (
+        {todos.map((todo) => (
           <div key={todo.id}>
             <TodoItem {...todo} />
           </div>
