@@ -22,11 +22,11 @@ function App() {
   return (
     <>
       <div>
-        <img src={ getEmotionImage(1) } alt="" />
-        <img src={ getEmotionImage(2) } alt="" />
-        <img src={ getEmotionImage(3) } alt="" />
-        <img src={ getEmotionImage(4) } alt="" />
-        <img src={ getEmotionImage(5) } alt="" />
+        <img src={ emotion1 } alt="" />
+        <img src={ emotion2 } alt="" />
+        <img src={ emotion3 } alt="" />
+        <img src={ emotion4 } alt="" />
+        <img src={ emotion5 } alt="" />
       </div>
       <div>
         <Link to={"/"}>Home</Link>
