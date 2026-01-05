@@ -1,5 +1,5 @@
 import './App.css';
-import { useReducer, useRef } from 'react';
+import { useEffect, useReducer, useRef, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Home from './pages/Home';
 import Diary from './pages/Diary';
@@ -38,6 +38,7 @@ function reducer(state, action) {
   let nextState;
 
   switch (action.type) {
+    case 'INIT': return action.data;
     case 'CREATE': {
         nextState = [action.data, ...state];
         break;
@@ -60,10 +61,38 @@ function reducer(state, action) {
 
 
 function App() {
+  const [isLoading, setIsLoading] = useState(true);
+  const [data, dispatch] = useReducer(reducer, []); //여러가지 일기 데이터를 가져야해서 []와 같이 빈 배열
 
-  const [data, dispatch] = useReducer(reducer, mockData); //여러가지 일기 데이터를 가져야해서 []와 같이 빈 배열
+  const idRef = useRef(0);
 
-  const idRef = useRef(3);
+  useEffect(() => {
+    const storedData = localStorage.getItem("diary");
+    if (!storedData) {
+      setIsLoading(false);
+      return;
+    }
+    const parsedData = JSON.parse(storedData);
+    if (!Array.isArray(parsedData)) { 
+      setIsLoading(false);
+      return;
+    }
+
+    let maxId = 0;
+    parsedData.forEach((item) => {
+      if (Number(item.id) > maxId) {
+        maxId = Number(item.id);
+      }
+    });
+
+    idRef.current = maxId + 1;
+
+    dispatch({
+      type: "INIT",
+      data: parsedData
+    });
+    setIsLoading(false);
+   }, []);
 
   // localStorage.setItem('test', 'hello');
   // localStorage.setItem("person", JSON.stringify({ name: '이정환' }));
@@ -106,6 +135,10 @@ function App() {
       type: 'DELETE',
       id,
     })
+  }
+
+  if (isLoading) { 
+    return <div>데이터 로딩중입니다...</div>
   }
 
   return (
