@@ -13,38 +13,48 @@ import { DiaryDispatchContext, DiaryStateContext } from './contexts/DiaryContext
 //2. '/new' : 새로운 일기를 작성하는 New 페이지
 //3. '/diary' : 일기를 상세히 조회하는 Diary 페이지
 
-const mockData = [
-  {
-    id: 1,
-    createdDate: new Date("2025-12-25").getTime(),
-    emotionId: 1,
-    content: "1번 일기 내용"
-  },
-  {
-    id: 2,
-    createdDate: new Date("2025-12-24").getTime(),
-    emotionId: 2,
-    content: "2번 일기 내용"
-  },
-  {
-    id: 3,
-    createdDate: new Date("2025-11-11").getTime(),
-    emotionId: 3,
-    content: "3번 일기 내용"
-  }
-]
+// const mockData = [
+//   {
+//     id: 1,
+//     createdDate: new Date("2025-12-25").getTime(),
+//     emotionId: 1,
+//     content: "1번 일기 내용"
+//   },
+//   {
+//     id: 2,
+//     createdDate: new Date("2025-12-24").getTime(),
+//     emotionId: 2,
+//     content: "2번 일기 내용"
+//   },
+//   {
+//     id: 3,
+//     createdDate: new Date("2025-11-11").getTime(),
+//     emotionId: 3,
+//     content: "3번 일기 내용"
+//   }
+// ]
 
 function reducer(state, action) {
+  let nextState;
+
   switch (action.type) {
-    case 'CREATE':
-      return [action.data, ...state];
-    case 'UPDATE':
-      return state.map((item) => String(item.id) === String(action.data.id) ? action.data : item);
-    case 'DELETE':
-      return state.filter((item) => String(item.id) !== String(action.id));
+    case 'CREATE': {
+        nextState = [action.data, ...state];
+        break;
+       }
+    case 'UPDATE': {
+        nextState =  state.map((item) => String(item.id) === String(action.data.id) ? action.data : item); 
+      break;
+      }
+    case 'DELETE':{
+        nextState = state.filter((item) => String(item.id) !== String(action.id));
+      break;
+      }
     default:
       return state;
   }
+  localStorage.setItem("diary", JSON.stringify(nextState));
+  return nextState;
 }
 
 
