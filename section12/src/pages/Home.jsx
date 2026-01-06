@@ -4,6 +4,7 @@ import Header from '../components/Header';
 import Button from '../components/Button';
 import DiaryList from '../components/DiaryList';
 import { DiaryStateContext } from '../contexts/DiaryContext';
+import usePageTitle from '../hooks/usePageTiltle';
 // import { data } from "react-router-dom";
 
 // PivotDate state 값을 기준으로 2월이면 2월 데이터만 출력, 3월이면 3월 데이터만 출력
@@ -36,6 +37,7 @@ const getMonthlyData = (pivotDate, data) => {
 const Home = () => {
   const data = useContext(DiaryStateContext);
   const [pivotDate, setPivotDate] = useState(new Date()); // 날짜를 보관하는 state
+  usePageTitle("감정 일기장");
 
   const monthlyData = getMonthlyData(pivotDate, data);
   console.log(monthlyData);
